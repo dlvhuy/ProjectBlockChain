@@ -1,7 +1,10 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ProjectBlockChain.Models;
 using ProjectBlockChain.Repositories;
+using System.Text;
 
 namespace ProjectBlockChain
 {
@@ -21,6 +24,20 @@ namespace ProjectBlockChain
       builder.Services.AddDbContextPool<BankingContext>(option =>
       {
         option.UseSqlServer(builder.Configuration.GetConnectionString("BankingDbConnect"));
+      });
+
+      var SecretKeyBytes = Encoding.UTF8.GetBytes(builder.Configuration["AppSetting:SecretKey"]);
+
+      builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+      {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateAudience = false,
+          ValidateIssuer = false,
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(SecretKeyBytes),
+          ClockSkew = TimeSpan.Zero
+        };
       });
 
       builder.Services.AddScoped<IUserRepository,UserRepository>();
