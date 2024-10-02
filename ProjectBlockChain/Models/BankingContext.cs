@@ -7,7 +7,7 @@ namespace ProjectBlockChain.Models
     public BankingContext(DbContextOptions<BankingContext> options) : base(options) { }
       
     public DbSet<User> Users { get; set; }
-    public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<TransactionBanking> Transactions { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
       modelBuilder.Entity<User>(entity =>
       {

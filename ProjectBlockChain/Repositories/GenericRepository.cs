@@ -64,7 +64,20 @@ namespace ProjectBlockChain.Repositories
 
         }
 
-        public void Update(T entity)
+        public async Task<T> GetItemByCriteriaAsync(Expression<Func<T, bool>>? predicate = null,CancellationToken cancellationToken = default)
+        {
+          T? item = await FindAllByCriteria(predicate)
+              .AsNoTracking()
+              .SingleOrDefaultAsync(cancellationToken);
+
+          if (item == null)
+            throw new NotFoundException("NotFound");
+
+          return item;
+
+        }
+
+    public void Update(T entity)
         {
             if (entity is null) throw new ArgumentNullException(nameof(entity));
 

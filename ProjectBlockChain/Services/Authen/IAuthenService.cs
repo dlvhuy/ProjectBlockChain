@@ -1,10 +1,12 @@
-﻿namespace ProjectBlockChain.Services.Authen
+﻿using ProjectBlockChain.Services.Authen.Dtos;
+
+namespace ProjectBlockChain.Services.Authen
 {
   public interface IAuthenService
   {
-    Task<string> Login();
+    string Login(DtoLogin login);
     Task Logout();
-    Task Register();
+    void Register(DtoRegister register);
     Task ChangePassword();
 
   }

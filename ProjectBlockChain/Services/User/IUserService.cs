@@ -2,9 +2,9 @@
 {
   public interface IUserService
   {
-    Task Transfer();
-    Task Deposit();
-    Task Withdrawal();
+    Task Transfer(int fromUserId, int toUserId, int amount);
+    Task Deposit(int userId,int amount);
+    Task Withdrawal(int userId, int amount);
     Task GetUserDetail();
 
   }

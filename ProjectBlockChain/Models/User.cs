@@ -8,11 +8,8 @@
     public required string IdentificationNumber { get ; set; }
     public required string Address { get; set; }
     public required string PasswordHash { get; set; }
-    public string AccountNumber {  
-      get => AccountNumber; 
-      set { value = DateTime.Now.ToString("yyyyMMddHHmmss") ;} 
-    }
-    
+
+    public required string AccountNumber { get; set; }
     public int BankAccount {
       get => BankAccount;
       set {
